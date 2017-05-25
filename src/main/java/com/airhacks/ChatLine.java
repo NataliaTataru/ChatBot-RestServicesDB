@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ChatLine.findByLineText", query = "SELECT c FROM ChatLine c WHERE c.lineText = :lineText"),
     @NamedQuery(name = "ChatLine.findByCreatedAt", query = "SELECT c FROM ChatLine c WHERE c.createdAt = :createdAt"),
     @NamedQuery(name = "ChatLine.findByBotResponse", query = "SELECT c FROM ChatLine c WHERE c.botResponse = :botResponse"),
-    @NamedQuery(name = "ChatLine.findByUserId", query = "SELECT c FROM ChatLine c WHERE c.userId.id = :userId")})
+    @NamedQuery(name = "ChatLine.findByUserId", query = "SELECT c FROM ChatLine c WHERE c.userId.id = :userId")
+    })
 public class ChatLine implements Serializable {
 
     private static final long serialVersionUID = 1L;

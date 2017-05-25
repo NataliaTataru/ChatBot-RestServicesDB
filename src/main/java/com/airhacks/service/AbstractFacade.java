@@ -7,6 +7,10 @@ package com.airhacks.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import com.airhacks.ChatLine;
 
 /**
  *
@@ -15,6 +19,11 @@ import javax.persistence.EntityManager;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
+
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date date = new Date();
+
+    //System.out.println (dateFormat.format(date));
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -38,6 +47,15 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createNamedQuery("ChatLine.findByUserId");
         q.setParameter("userId", userId);
         return q.getResultList();
+    }
+
+    public void insertConversation(String lineText, String botResponse) {
+
+        ChatLine cl = new ChatLine(1, lineText, dateFormat.format(date), botResponse);
+        getEntityManager().getTransaction().begin();
+        getEntityManager().persist(cl);
+        getEntityManager().getTransaction().commit();
+
     }
 
     public T find(Object id) {

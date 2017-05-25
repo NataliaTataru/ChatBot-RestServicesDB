@@ -45,7 +45,7 @@
 
         <init-param>
             <param-name>cors.supportedMethods</param-name>
-            <param-value>GET, HEAD, POST, DELETE, OPTIONS</param-value>
+            <param-value>OPTIONS, TRACE, GET, HEAD, POST, PUT</param-value>
         </init-param>
 
         <init-param>

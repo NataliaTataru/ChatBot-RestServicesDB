@@ -83,6 +83,14 @@ public class ChatLineFacadeREST extends AbstractFacade<ChatLine> {
     public List<ChatLine> findByUserId(@PathParam("userId") int userId) {
         return super.findByUserId(userId);
     }
+    
+    @PUT
+    @Path("/insertConversation/{lineText}/{botResponse}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Override
+    public void insertConversation(@PathParam("lineText") String lineText, @PathParam("botResponse") String botResponse) {
+        super.insertConversation(lineText, botResponse);
+    }
 
     @GET
     @Path("count")
