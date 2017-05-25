@@ -75,6 +75,14 @@ public class ChatLineFacadeREST extends AbstractFacade<ChatLine> {
     public List<ChatLine> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
+    
+    @GET
+    @Path("/userId/{userId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Override
+    public List<ChatLine> findByUserId(@PathParam("userId") int userId) {
+        return super.findByUserId(userId);
+    }
 
     @GET
     @Path("count")
