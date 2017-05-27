@@ -10,20 +10,20 @@
         </session-timeout>
     </session-config>
     
-    <servlet>
-        <servlet-name>MY API</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <filter>
+        <filter-name>MY API</filter-name>
+        <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
        
         <init-param>
             <param-name>org.glassfish.jersey.containers.ContainerResponseFilters</param-name>
             <param-value>com.filter.NewCrossOriginResourceSharingFilter</param-value>
         </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MY API</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+        
+    </filter>
+    <filter-mapping>
+        <filter-name>MY API</filter-name>
+        <url-pattern>*.</url-pattern>
+    </filter-mapping>
     <filter>
         <filter-name>CORS</filter-name>
         <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>

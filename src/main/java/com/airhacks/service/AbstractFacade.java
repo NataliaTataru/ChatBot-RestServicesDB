@@ -11,6 +11,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import com.airhacks.ChatLine;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,7 +25,6 @@ public abstract class AbstractFacade<T> {
     Date date = new Date();
 
     //System.out.println (dateFormat.format(date));
-
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
@@ -49,9 +49,27 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-    public void insertConversation(String lineText, String botResponse) {
+    public void insertConversationNative() {
+        
+        System.out.println("************************************INSERTING");
+        String query = "INSERT INTO chat_line (line_text, bot_response, chat_id, user_id, created_at) values (?,?,?,?,?)";
+        
+        
+        Long userId = (long) 1;
+        Long chatId = (long) 1;
+        Query q = getEntityManager().createNativeQuery(query);
+                q.setParameter(1, "Hi bot");
+                q.setParameter(2, "Hiiiiiii");
+                q.setParameter(3, userId);
+                q.setParameter(4, chatId);
+                q.setParameter(5, date);
+                q.executeUpdate();
 
-        ChatLine cl = new ChatLine(1, lineText, dateFormat.format(date), botResponse);
+    }
+
+    public void insertConversation(String lineText, String botResponse) {
+        Long id = (long) 1;
+        ChatLine cl = new ChatLine(id, lineText, date, botResponse);
         getEntityManager().getTransaction().begin();
         getEntityManager().persist(cl);
         getEntityManager().getTransaction().commit();

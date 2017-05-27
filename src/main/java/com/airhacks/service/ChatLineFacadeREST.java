@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,6 +26,7 @@ import javax.ws.rs.core.MediaType;
  * @author nataliat
  */
 @Stateless
+@Transactional
 @Path("com.airhacks.chatline")
 public class ChatLineFacadeREST extends AbstractFacade<ChatLine> {
 
@@ -81,12 +83,19 @@ public class ChatLineFacadeREST extends AbstractFacade<ChatLine> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Override
     public List<ChatLine> findByUserId(@PathParam("userId") int userId) {
+        System.out.println("CONVERSATION***************");
         return super.findByUserId(userId);
     }
-    
     @PUT
+    @Path("/insertConversationNative")
+    @Override
+    public void insertConversationNative() {
+        System.out.println("INSERT***************");
+        super.insertConversationNative();
+    }
+    @POST
     @Path("/insertConversation/{lineText}/{botResponse}")
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes({MediaType.TEXT_PLAIN,MediaType.APPLICATION_JSON})
     @Override
     public void insertConversation(@PathParam("lineText") String lineText, @PathParam("botResponse") String botResponse) {
         super.insertConversation(lineText, botResponse);
